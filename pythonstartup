@@ -2,6 +2,9 @@
 import readline
 import rlcompleter
 import atexit
+import os
+import sys
+import cPickle as pickle
 # tab completion
 readline.parse_and_bind('tab: complete')
 # history file
@@ -12,11 +15,6 @@ except IOError:
     pass
 atexit.register(readline.write_history_file, histfile)
 del histfile, readline, rlcompleter
-
-# imports
-import os
-import sys
-import cPickle as pickle
 
 # useful functions
 def listdir(dir='.', suffix=None):
