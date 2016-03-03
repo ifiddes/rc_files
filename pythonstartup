@@ -2,9 +2,6 @@
 import readline
 import rlcompleter
 import atexit
-import os
-import sys
-import cPickle as pickle
 # tab completion
 readline.parse_and_bind('tab: complete')
 # history file
@@ -15,3 +12,29 @@ except IOError:
     pass
 atexit.register(readline.write_history_file, histfile)
 del histfile, readline, rlcompleter
+
+# imports
+import os
+import sys
+import cPickle as pickle
+
+# useful functions
+def listdir(dir='.', suffix=None):
+    """returns a list of dir, filtering by suffix"""
+    if suffix is None:
+        return [x for x in os.listdir(dir)]
+    else:
+        return [x for x in os.listdir(dir) if x.endswith(suffix)]
+
+
+def loadp(path):
+    """loads a pickled object"""
+    return pickle.load(open(path))
+
+
+def write_list_tab(var, path):
+    """writes var to path"""
+    assert isinstance(var, list) or isinstance(var, tuple)
+    with open(path, 'w') as outf:
+        for line in var:
+            outf.write('\t'.join(line) + '\n')
