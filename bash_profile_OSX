@@ -1,24 +1,30 @@
+# make the interface pretty
 export PS1="\[\e[00;35m\]\h\[\e[0m\]\[\e[00;37m\] \[\e[0m\]\[\e[00;32m\]\d\[\e[0m\]\[\e[00;37m\] \[\e[0m\]\[\e[00;32m\]\A\[\e[0m\]\[\e[00;37m\] \W \[\e[0m\]\[\e[00;31m\]\\$\[\e[0m\]"
 export CLICOLOR=1
 export LSCOLORS=ExFxBxDxCxegedabagacad
-alias ls='ls -GFh'
 
+# eternal bash history, works across multiple SSH sessions simultaneously
 export HISTSIZE=""
 export HISTFILESIZE=""
 export HISTFILE=${HOME}/.eternal_bash_history
 export HISTTIMEFORMAT="[%D %T] "
 PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
 
+# add anaconda to your path
 export PATH=/Users/ifiddes/anaconda/bin:${PATH}
 
+# see .pythonstartup for entries ehre
 export PYTHONSTARTUP=$HOME/.pythonstartup
 
+# common SSH aliases
 alias cirm="ssh 10.50.1.20"
 alias ku="ssh -A -t kolossus.sdsc.edu ssh -A ku"
 alias kolo='ssh kolossus.sdsc.edu'
 alias hgw='ssh hgwdev.soe.ucsc.edu'
 alias jug='ssh juggernaut.sdsc.edu'
 #alias cruncher='ssh 172.16.0.4'
+
+# SSHFS aliases, with apple-specific permissions
 alias cluster='umount -f ~/cluster; sshfs -o volname="cluster" -o reconnect,auto_cache,defer_permissions,noappledouble -C -o workaround=all ifiddes@kolossus.sdsc.edu:/cluster/home/ifiddes/ ~/cluster'
 alias cruncher='umount -f ~/172.16.0.4; sshfs -o volname="172.16.0.4" -o reconnect,auto_cache,defer_permissions,noappledouble -C -o workaround=all ifiddes@172.16.0.4:/inside/home/ifiddes/ ~/172.16.0.4'
 alias depot4='umount -f ~/depot4; sshfs -o volname="depot4" -o reconnect,auto_cache,defer_permissions,noappledouble -C -o workaround=all ifiddes@172.16.0.4:/inside/depot4/users/ifiddes ~/depot4'
@@ -27,7 +33,7 @@ alias mus_hive='umount -f ~/mus_hive; sshfs -o volname="mus_hive" -o reconnect,a
 alias cirm_folder='umount -f ~/cirm; sshfs -o volname="cirm" -o reconnect,auto_cache,defer_permissions,noappledouble -C -o workaround=all ifiddes@10.50.1.20:/data/cirm/te_analysis ~/cirm'
 alias gorilla_hive='umount -f ~/gorilla_hive; sshfs -o volname="gorilla_hive" -o reconnect,auto_cache,defer_permissions,noappledouble -C -o workaround=all ifiddes@juggernaut.sdsc.edu:/hive/groups/recon/projs/gorilla_eichler/ ~/gorilla_hive'
 
-
+# all sorts of entries I stole from somewhere
 alias cp='cp -iv'                           # Preferred 'cp' implementation
 alias mv='mv -iv'                           # Preferred 'mv' implementation
 alias mkdir='mkdir -pv'                     # Preferred 'mkdir' implementation
@@ -59,7 +65,7 @@ alias DT='tee ~/Desktop/terminalOut.txt'    # DT:           Pipe content to file
 #   ------------------------------------------
 alias lr='ls -R | grep ":$" | sed -e '\''s/:$//'\'' -e '\''s/[^-][^\/]*\//--/g'\'' -e '\''s/^/   /'\'' -e '\''s/-/|/'\'' | less'
 
-
+# awesome function to magically extract most common compressed objects
     extract () {
         if [ -f $1 ] ; then
           case $1 in
